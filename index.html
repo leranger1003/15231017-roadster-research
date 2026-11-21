@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特斯拉 Flying Roadster｜全方位调研与技术·市场可行性分析（学号 15231017）</title>
+<style>
+:root{
+  --ink:#0f1c2e; --sub:#3f536b; --muted:#6b7f96; --line:#dfe6ee;
+  --bg:#f5f8fb; --card:#ffffff; --navy:#123d63; --navy2:#1d5b8f;
+  --red:#c8102e; --amber:#b45309; --green:#0f766e; --blue-soft:#eaf2f9;
+  --shadow:0 8px 30px rgba(18,61,99,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.72;font-size:15px}
+a{color:var(--navy2);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .inner{max-width:1180px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:15px;color:var(--navy);white-space:nowrap}
+.brand span{color:var(--red)}
+nav{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
+nav a{font-size:13px;color:var(--sub);padding:4px 8px;border-radius:6px}
+nav a:hover,nav a.active{background:var(--blue-soft);color:var(--navy);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.hero{margin:26px 0 10px;background:linear-gradient(135deg,#0e3255 0%,#194e79 58%,#256a9c 100%);color:#fff;border-radius:18px;padding:44px 46px 38px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:36px 36px;pointer-events:none}
+.hero .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#a8d2f2;font-weight:700}
+.hero .byline{font-size:13px;color:#dbeafe;margin-top:8px;letter-spacing:.06em}
+.hero h1{font-size:38px;line-height:1.25;margin:12px 0 8px;letter-spacing:-.5px}
+.hero .lead{font-size:16px;color:#d8e9f7;max-width:720px;margin:0 0 24px}
+.hero-grid{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:center;position:relative;z-index:1}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px;font-size:13px}
+.chip b{color:#ffd9df;font-size:15px}
+.hero svg{width:100%;height:auto;display:block;filter:drop-shadow(0 12px 18px rgba(0,0,0,.25))}
+.section{padding:44px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;border-bottom:2px solid var(--line);padding-bottom:12px}
+.sec-no{font-size:12px;font-weight:800;color:#fff;background:var(--navy);border-radius:6px;padding:3px 8px;letter-spacing:.08em}
+h2{font-size:25px;margin:0;letter-spacing:-.3px}
+h3{font-size:17px;margin:26px 0 10px;color:var(--navy)}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4,.hero-grid{grid-template-columns:1fr}.g2{grid-template-columns:1fr}.hero{padding:30px 24px}.hero h1{font-size:29px}}
+.metric{text-align:center;padding:20px 12px}
+.metric .v{font-size:30px;font-weight:800;color:var(--red);line-height:1.1}
+.metric .l{font-size:13px;color:var(--muted);margin-top:6px}
+.metric .s{font-size:11px;color:#94a3b8;margin-top:4px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;vertical-align:middle;margin-left:6px}
+.t-off{background:#e0f2fe;color:#075985}
+.t-media{background:#fef3c7;color:#92400e}
+.t-calc{background:#ede9fe;color:#5b21b6}
+.t-unknown{background:#fee2e2;color:#991b1b}
+.callout{border-left:4px solid var(--navy2);background:var(--blue-soft);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+.callout.warn{border-color:var(--red);background:#fef2f2}
+.callout.ok{border-color:var(--green);background:#ecfdf5}
+.callout b{color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:13.5px;box-shadow:var(--shadow);margin:14px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:11px 12px;font-weight:600;white-space:nowrap}
+td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafcfe}
+.tl{position:relative;padding-left:26px;margin:18px 0}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#cbd9e6}
+.tl-item{position:relative;padding:0 0 20px 8px}
+.tl-item:before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--navy2)}
+.tl-item.hot:before{border-color:var(--red);background:var(--red)}
+.tl-item .date{font-weight:800;color:var(--navy);font-size:13px}
+.tl-item .desc{color:var(--sub);font-size:14px}
+.bar-row{display:grid;grid-template-columns:190px 1fr 90px;gap:12px;align-items:center;margin:10px 0;font-size:13px}
+.bar-track{background:#e8eef4;border-radius:6px;height:22px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--navy2),#4a94cc)}
+.bar-fill.red{background:linear-gradient(90deg,#c8102e,#ef6a7c)}
+.bar-fill.green{background:linear-gradient(90deg,#0f766e,#4fb3a6)}
+.bar-val{font-variant-numeric:tabular-nums;font-weight:700;text-align:right}
+.matrix td:first-child{font-weight:700;color:var(--navy)}
+.ok-c{color:var(--green);font-weight:700}
+.no-c{color:var(--red);font-weight:700}
+.mid-c{color:var(--amber);font-weight:700}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swot>div{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:#fff}
+.swot h4{margin:0 0 6px;font-size:14px}
+.swot .s{border-top:3px solid var(--green)}
+.swot .w{border-top:3px solid var(--red)}
+.swot .o{border-top:3px solid var(--navy2)}
+.swot .t{border-top:3px solid var(--amber)}
+.swot ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--sub)}
+footer{margin-top:56px;background:#0e2a45;color:#c4d7e8;padding:30px 0 36px;font-size:13px}
+footer a{color:#9fd0f5}
+.ref{font-size:13px;color:var(--sub)}
+.ref li{margin:7px 0}
+.badge{display:inline-block;background:var(--navy);color:#fff;border-radius:4px;padding:1px 6px;font-size:11px;margin-right:6px}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="inner">
+  <div class="brand">飞行汽车技术基础 <span>·</span> 课程作业 1 <span>·</span> 15231017</div>
+  <nav>
+    <a href="#summary">结论速览</a><a href="#timeline">产品谱系</a><a href="#tech">技术解构</a>
+    <a href="#feasibility">技术可行性</a><a href="#scenario">应用场景</a><a href="#market">市场可行性</a>
+    <a href="#verdict">综合结论</a><a href="#sources">参考来源</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+<section class="hero" id="top">
+  <div class="kicker">Fundamentals of Flying Vehicle Technology · 2026</div>
+  <div class="byline">吉林大学 · 飞行汽车技术基础课程作业 ｜ 学号：15231017</div>
+  <h1>特斯拉 Flying Roadster<br>全方位调研与技术 / 市场可行性分析</h1>
+  <p class="lead">一个对象、两条证据链：技术侧回答「它究竟怎么飞、能飞多久」，市场侧回答「它是出行产品还是品牌图腾」。结论基于特斯拉官方页面、2026 年 10 月 15 日公开演示的主流媒体报道与可复核的物理估算。</p>
+  <div class="hero-grid">
+    <div class="chips">
+      <div class="chip">冷气喷嘴 <b>≈10</b> 组</div>
+      <div class="chip">COPV 储气 <b>600 L / 250 kg</b></div>
+      <div class="chip">峰值推力 <b>&gt;80 kN</b></div>
+      <div class="chip">吸附下压力 <b>≈2 G</b></div>
+      <div class="chip">Rocket 0–60 mph <b>&lt;0.59 s</b></div>
+      <div class="chip">量产目标 <b>2028</b></div>
+    </div>
+    <svg viewBox="0 0 380 200" role="img" aria-label="Roadster 冷气推进与风扇吸附示意">
+      <defs>
+        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8eef4"/><stop offset="1" stop-color="#9fb3c6"/></linearGradient>
+        <linearGradient id="jet" x1="1" y1="0" x2="0" y2="0"><stop stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#8ecbff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <!-- ground -->
+      <line x1="10" y1="168" x2="370" y2="168" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+      <!-- suction arrows -->
+      <g stroke="#7dd3fc" stroke-width="2" fill="none" opacity=".9">
+        <path d="M120 196 L120 172 M150 198 L150 172 M230 198 L230 172 M260 196 L260 172"/>
+        <path d="M115 166 l5 7 l5 -7 M145 166 l5 7 l5 -7 M225 166 l5 7 l5 -7 M255 166 l5 7 l5 -7"/>
+      </g>
+      <!-- car body -->
+      <path d="M42 142 C52 122 80 116 112 112 L150 84 C160 76 178 73 205 74 L262 78 C282 80 296 90 312 108 L336 120 C346 125 348 138 340 146 L330 150 L42 150 Z" fill="url(#body)" stroke="#f8fafc" stroke-width="1.5"/>
+      <!-- window -->
+      <path d="M154 88 C165 80 180 79 204 80 L244 83 L232 108 L142 109 Z" fill="#163a5c" opacity=".85"/>
+      <!-- wheels -->
+      <circle cx="105" cy="147" r="22" fill="#14283c" stroke="#e2e8f0" stroke-width="3"/>
+      <circle cx="105" cy="147" r="9" fill="#7f96ab"/>
+      <circle cx="290" cy="147" r="22" fill="#14283c" stroke="#e2e8f0" stroke-width="3"/>
+      <circle cx="290" cy="147" r="9" fill="#7f96ab"/>
+      <!-- thrusters -->
+      <g fill="#ff6b7f" stroke="#fff" stroke-width="1">
+        <circle cx="52" cy="132" r="4"/><circle cx="80" cy="116" r="4"/><circle cx="200" cy="76" r="4"/>
+        <circle cx="250" cy="79" r="4"/><circle cx="306" cy="100" r="4"/><circle cx="344" cy="126" r="4"/>
+        <circle cx="330" cy="142" r="4"/><circle cx="60" cy="147" r="4"/>
+      </g>
+      <path d="M348 134 L374 130 L374 142 L348 140 Z" fill="url(#jet)"/>
+      <path d="M46 138 L18 132 L18 146 L46 144 Z" fill="url(#jet)"/>
+      <!-- labels -->
+      <g font-size="11" fill="#dbeafe" font-family="sans-serif">
+        <text x="196" y="62">冷气喷嘴 ×10（环绕布置）</text>
+        <text x="112" y="192">涵道风扇吸附（≈2 G）</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="section" id="summary">
+  <div class="sec-head"><span class="sec-no">01</span><h2>结论速览：先给判断，再给证据</h2></div>
+  <div class="grid g4">
+    <div class="card metric"><div class="v">已验证</div><div class="l">短时腾空与姿态控制</div><div class="s">2026-10-15 现场演示 <span class="tag t-media">媒体</span></div></div>
+    <div class="card metric"><div class="v">秒级</div><div class="l">理论悬停时间量级</div><div class="s">工质与比冲反算 <span class="tag t-calc">估算</span></div></div>
+    <div class="card metric"><div class="v">否</div><div class="l">持续巡航意义上的「飞行」</div><div class="s">FAA 不认定为航空器 <span class="tag t-media">媒体</span></div></div>
+    <div class="card metric"><div class="v">2028</div><div class="l">量产目标年</div><div class="s">官方口径，曾至少 8 次延期 <span class="tag t-off">官方</span></div></div>
+  </div>
+  <div class="callout"><b>核心判断：</b>Flying Roadster 是「带航天姿态控制外挂的电动超跑」，而不是 eVTOL。它的飞行动作属于 <b>short-burst flight（短时爆发式腾空）</b>：靠坡道获得初速度、靠负压风扇贴附、靠冷气喷嘴完成翻转与减速着陆。技术演示成立，但把它当作交通工具不成立——这一区分决定了后文全部可行性结论。</div>
+  <div class="grid g3">
+    <div class="card"><h3 style="margin-top:0">技术可行性</h3><p style="color:var(--sub);font-size:14px">冷气推进 + 风扇吸附的组合在封闭场地内可复现；但受冷气比冲（数十秒量级）与 250 kg 工质限制，悬停仅秒级，无法覆盖任何有意义的出行距离。</p></div>
+    <div class="card"><h3 style="margin-top:0">场景可行性</h3><p style="color:var(--sub);font-size:14px">可落地的是赛道体验、工程验证与品牌传播；第五章「低空文旅—枢纽接驳—区域交通—城市成网」的四阶段路径中，它止步于第一阶段之前。</p></div>
+    <div class="card"><h3 style="margin-top:0">市场可行性</h3><p style="color:var(--sub);font-size:14px">低空经济大盘高速扩张，但 Roadster 不在 eVTOL 认证与运营体系内。其商业角色是 halo car（光环车型），对销量的直接贡献有限。</p></div>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="sec-head"><span class="sec-no">02</span><h2>产品谱系：九年跳票后的三档配置</h2></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3 style="margin-top:0">关键节点</h3>
+      <div class="tl">
+        <div class="tl-item"><div class="date">2017-11</div><div class="desc">原型车随 Semi 发布会亮相，承诺 2020 年量产；0–60 mph 1.9 s、续航 620 mile、极速 &gt;250 mph、售价 20 万美元。<span class="tag t-off">官方历史</span></div></div>
+        <div class="tl-item"><div class="date">2018</div><div class="desc">马斯克首次描述由约 10 个推进器组成的 SpaceX Package；同年初代 Roadster 随猎鹰重型进入太空。</div></div>
+        <div class="tl-item"><div class="date">2020–2025</div><div class="desc">量产口径由 2020 → 2022 → 2023 → 2024 → 2025/2026 多次后移；演示日期亦至少 8 次变更。</div></div>
+        <div class="tl-item hot"><div class="date">2026-10-15</div><div class="desc">在得州 SpaceX McGregor 试验场公开演示：倒挂坡道 → 腾空翻转 → 平稳落地；现场 0–60 mph 计时 0.81 s。全程远程操控，驾驶位为 Optimus 机器人。</div></div>
+        <div class="tl-item"><div class="date">2028（目标）</div><div class="desc">计划在得州启动生产；最终售价、飞行参数、各国法规认定仍未公布。<span class="tag t-unknown">明确未知</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">三档配置横向对比</h3>
+      <table>
+        <tr><th>版本</th><th>Performance</th><th>Thrust</th><th>Rocket</th></tr>
+        <tr><td>定位</td><td>道路版 / road ready</td><td>赛道版 / race ready</td><td>飞行版 / air ready</td></tr>
+        <tr><td>座位</td><td>2</td><td>2</td><td>1</td></tr>
+        <tr><td>0–60 mph</td><td>&lt;1.6 s</td><td>&lt;0.9 s</td><td>&lt;0.59 s</td></tr>
+        <tr><td>推进器</td><td>无</td><td>后置冷气推进器</td><td>环绕式 ≈10 组</td></tr>
+        <tr><td>吸附风扇</td><td>有</td><td>有</td><td>有</td></tr>
+        <tr><td>公共道路</td><td class="ok-c">可申请上路</td><td class="mid-c">赛道限定</td><td class="no-c">明确未获批</td></tr>
+        <tr><td>预订方式</td><td>5 万美元定金</td><td>25 万美元定金</td><td>仅限邀请</td></tr>
+      </table>
+      <p style="font-size:12.5px;color:var(--muted);margin:0">注：定金不是最终售价。中国官网目前仅开放 Performance 版意向登记，金额 33.2 万元，并提示以届时法规为准。<span class="tag t-media">媒体</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tech">
+  <div class="sec-head"><span class="sec-no">03</span><h2>技术解构：三个子系统拼出「能飞的车」</h2></div>
+  <div class="grid g3">
+    <div class="card">
+      <h3 style="margin-top:0">① 冷气推进 A71</h3>
+      <p style="font-size:14px;color:var(--sub)">与 SpaceX 联合开发。两只碳纤维缠绕高压容器（COPV）合计约 600 L，装填约 250 kg 压缩空气；经约 10 个喷嘴膨胀喷出，以反作用力产生推力。全程不燃烧、无明火，可车载压缩机补气。</p>
+      <ul style="font-size:13.5px;color:var(--sub);padding-left:18px">
+        <li>向下喷 → 托举；向后喷 → 加速</li>
+        <li>成对差动 → 俯仰 / 横滚 / 偏航</li>
+        <li>全电作动器做毫秒级姿态微调</li>
+        <li>峰值推力 &gt;80 kN，约为轮胎抓地力的 4–5 倍</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">② 多模式风扇吸附</h3>
+      <p style="font-size:14px;color:var(--sub)">车底涵道风扇主动抽走底盘空气，配合地面密封形成负压区，把车身「按」在坡道上。与依赖车速的传统尾翼不同，静止时也能产生下压力。</p>
+      <ul style="font-size:13.5px;color:var(--sub);padding-left:18px">
+        <li>公开口径约 2 G 下压力</li>
+        <li>演示中坡道吸附力 &gt;4,700 kg</li>
+        <li>是倒挂行驶与腾空起步的前提</li>
+        <li>专利图示：后扩散器横排 4 台轴流风扇</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">③ 电动性能平台</h3>
+      <p style="font-size:14px;color:var(--sub)">三电机四驱、主动尾翼、Track Mode、线控转向 yoke。镁、钛、碳纤维与固定座椅、手动调节，服务于极致减重。官方给出的地面性能：极速 &gt;230 mph（约 370 km/h）、续航 &gt;300 mile（约 480 km）。</p>
+      <div class="callout ok" style="margin:12px 0 0;font-size:13px"><b>口径变化需留意：</b>2017 版宣称 620 mile 续航，2026 版降至 300+ mile；这是「用续航换速度」的取舍，不是简单升级。</div>
+    </div>
+  </div>
+
+  <h3>动作链：从坡道到落地，五个环节缺一不可</h3>
+  <div class="card">
+    <table>
+      <tr><th style="width:90px">阶段</th><th>物理机制</th><th>依赖的硬件</th><th>失效后果</th></tr>
+      <tr><td>① 加速爬坡</td><td>电机扭矩 + 后向喷气叠加，突破轮胎附着极限</td><td>三电机、后向喷嘴</td><td>速度不足，无法到达坡道顶点</td></tr>
+      <tr><td>② 倒挂贴附</td><td>风扇抽气形成压差，大气压把车压向坡面</td><td>涵道风扇、地面密封</td><td>密封失效即坠落（安全作业 2 展开）</td></tr>
+      <tr><td>③ 腾空/orientation</td><td>离开坡道后靠喷嘴差动产生三轴力矩</td><td>环绕喷嘴、电作动器</td><td>姿态失控，无法着陆</td></tr>
+      <tr><td>④ 下降减速</td><td>向下喷气产生反推，抵消重力加速度</td><td>底部喷嘴、工质余量</td><td>硬着陆，结构/乘员受损</td></tr>
+      <tr><td>⑤ 四轮着陆</td><td>控制器在触地前归零姿态与垂直速度</td><td>IMU、控制律、悬架</td><td>侧翻、翻滚</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="feasibility">
+  <div class="sec-head"><span class="sec-no">04</span><h2>技术可行性：用物理边界给「飞行」祛魅</h2></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3 style="margin-top:0">定义辨析：它是「跳」，不是「飞」</h3>
+      <p style="font-size:14px;color:var(--sub)">美国国家航空航天博物馆航空部策展人 Roger Connor 在演示前评价：这类概念更接近「跳跃（hop）」。美国联邦航空管理局（FAA）回应媒体称，该车不符合其对「航空器」的定义。科普中国亦指出，其工程定位是「姿态控制与短时弹道修正装置」，而非把车托举巡航的动力系统。<span class="tag t-media">媒体</span></p>
+      <div class="callout warn"><b>判断口径：</b>判断「能不能飞」要先定义飞。若定义为「持续、可控、可重复的点到点空中运输」，答案是否定的；若定义为「借助外部坡道与冷气推力短暂离地并完成姿态机动」，演示已经给出肯定答案。</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">工质—冲量估算：秒级悬停从何而来</h3>
+      <p style="font-size:14px;color:var(--sub)">冷气推进的比冲（Isp）通常在数十秒量级，液体火箭发动机在数百秒量级。按整备质量约 2 t、工质 250 kg、Isp ≈ 60 s 做保守量级估算：</p>
+      <table style="box-shadow:none;margin:10px 0">
+        <tr><th>量</th><th>算式</th><th>结果</th></tr>
+        <tr><td>总冲量</td><td>250 kg × 9.81 × 60 s</td><td>≈ 147 kN·s</td></tr>
+        <tr><td>悬停所需推力</td><td>2,000 kg × 9.81</td><td>≈ 19.6 kN</td></tr>
+        <tr><td>理论悬停上限</td><td>147 ÷ 19.6</td><td>≈ 7.5 s</td></tr>
+        <tr><td>工程实际</td><td>扣除罐压衰减、余气、姿态消耗</td><td><b>数秒量级</b></td></tr>
+      </table>
+      <p style="font-size:12.5px;color:var(--muted);margin:0">此为数量级推算，非厂商实测值；特斯拉未公布飞行时长、升限与补气时间。<span class="tag t-unknown">明确未知</span></p>
+    </div>
+  </div>
+
+  <h3>与真正 eVTOL 的能力对照</h3>
+  <table class="matrix">
+    <tr><th>维度</th><th>Flying Roadster（Rocket）</th><th>典型载人 eVTOL</th><th>差距性质</th></tr>
+    <tr><td>起飞方式</td><td>坡道助跑 + 冷气短推</td><td>多旋翼/升力巡航垂直起降</td><td>本质不同</td></tr>
+    <tr><td>空中时间</td><td>秒级</td><td>数十分钟至数小时</td><td>2–3 个数量级</td></tr>
+    <tr><td>推进介质</td><td>高压压缩空气（不燃烧）</td><td>电池驱动螺旋桨/涵道风扇</td><td>能量路线不同</td></tr>
+    <tr><td>航程</td><td>无空中航程；地面 300+ mile</td><td>典型 30–200 km</td><td>不可比</td></tr>
+    <tr><td>适航取证</td><td class="no-c">无 TC，FAA 不认定为航空器</td><td>TC / AC / OC 三证体系</td><td>制度性缺口</td></tr>
+    <tr><td>操控</td><td>演示为远程操控</td><td>有人驾驶或认证自动驾驶</td><td>成熟度差距</td></tr>
+  </table>
+  <div class="callout"><b>可行性评级：</b>地面性能 <span class="ok-c">高（演示已验证）</span>｜短时腾空 <span class="ok-c">高（封闭场地已验证）</span>｜持续飞行 <span class="no-c">不可行（物理与制度双重约束）</span>｜量产一致性 <span class="mid-c">未知（2028 目标，尚无量产车）</span></div>
+</section>
+
+<section class="section" id="scenario">
+  <div class="sec-head"><span class="sec-no">05</span><h2>应用场景：落在第五章框架的第几格？</h2></div>
+  <p style="color:var(--sub)">第五章将飞行汽车应用划分为专业化与大众化两条路径，大众化路径按「低空文旅 → 枢纽接驳 → 区域交通 → 城市交通成网」四阶段推进。用这把尺子量 Roadster，结论相当清晰。</p>
+  <div class="card">
+    <div class="bar-row"><div>赛道 / 测试场特技体验</div><div class="bar-track"><div class="bar-fill green" style="width:92%"></div></div><div class="bar-val">适配</div></div>
+    <div class="bar-row"><div>汽车性能技术验证平台</div><div class="bar-track"><div class="bar-fill green" style="width:85%"></div></div><div class="bar-val">适配</div></div>
+    <div class="bar-row"><div>品牌传播 / 技术图腾</div><div class="bar-track"><div class="bar-fill green" style="width:95%"></div></div><div class="bar-val">高适配</div></div>
+    <div class="bar-row"><div>低空文旅（观光体验）</div><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><div class="bar-val">弱</div></div>
+    <div class="bar-row"><div>枢纽接驳 / 城际通勤</div><div class="bar-track"><div class="bar-fill red" style="width:5%"></div></div><div class="bar-val">不适用</div></div>
+    <div class="bar-row"><div>城市立体交通网络</div><div class="bar-track"><div class="bar-fill red" style="width:3%"></div></div><div class="bar-val">不适用</div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="callout"><b>为什么不是低空文旅：</b>观光要求「可重复的载客空中停留」，而 Rocket 是单座、工质秒级、需坡道助跑、仅限封闭场地。它提供的是表演，不是运输服务。</div>
+    <div class="callout warn"><b>真正的商业价值在地面：</b>风扇吸附带来的低速下压力与线控转向、主动气动，可能反哺高性能路面车辆；冷气姿态控制则更多是技术展示。马斯克本人也承认，不确定这款车「对营收有多大推动」。<span class="tag t-media">媒体</span></div>
+  </div>
+</section>
+
+<section class="section" id="market">
+  <div class="sec-head"><span class="sec-no">06</span><h2>市场可行性：大盘很热，但它不在赛道上</h2></div>
+  <div class="grid g4">
+    <div class="card metric"><div class="v">$300B</div><div class="l">2030 全球 eVTOL 市场预测</div><div class="s">Morgan Stanley <span class="tag t-media">机构</span></div></div>
+    <div class="card metric"><div class="v">$9T</div><div class="l">2050 城市空中交通远景</div><div class="s">Morgan Stanley <span class="tag t-media">机构</span></div></div>
+    <div class="card metric"><div class="v">¥1.07T</div><div class="l">2026E 中国低空经济规模</div><div class="s">赛迪顾问 <span class="tag t-media">机构</span></div></div>
+    <div class="card metric"><div class="v">221 架</div><div class="l">2025 国内 eVTOL 交付量</div><div class="s">行业统计 <span class="tag t-media">媒体</span></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--muted)">预测与交付之间的落差，正是第五章强调的「产业应用—技术创新—支撑保障」三支柱不同步的现实注脚：约 1 万亿元的预期对应的是百架级交付。</p>
+
+  <div class="swot">
+    <div class="s"><h4>Strength 优势</h4><ul><li>特斯拉 + SpaceX 双品牌与工程叙事</li><li>现场演示已证明短时腾空可复现</li><li>三电机、风扇吸附、线控转向等可下放</li></ul></div>
+    <div class="w"><h4>Weakness 劣势</h4><ul><li>工质秒级，无实用空中航程</li><li>至少 8 次延期，量产仍是目标</li><li>火箭版不可上路、仅邀请制</li><li>最终售价与关键参数未公布</li></ul></div>
+    <div class="o"><h4>Opportunity 机会</h4><ul><li>低空经济政策与资本热度持续</li><li>高性能电动车竞争需要「技术图腾」</li><li>冷气姿控思路或衍生出赛道安全技术</li></ul></div>
+    <div class="t"><h4>Threat 威胁</h4><ul><li>FAA/NHTSA 均无对应认证通道</li><li>噪音、高压储气与第三方伤害风险</li><li>Rimac、路特斯、仰望、小米等性能竞品已交付</li></ul></div>
+  </div>
+
+  <h3>竞争格局：两个赛场，两套对手</h3>
+  <table>
+    <tr><th>赛场</th><th>对手</th><th>Roadster 的位置</th></tr>
+    <tr><td>高性能电动超跑</td><td>Rimac Nevera、Lotus Evija、仰望 U9 Xtreme（496.22 km/h）、小米 SU7 Ultra</td><td>参数亮眼但尚无量产验证，先发优势正在被追平</td></tr>
+    <tr><td>载人空中出行</td><td>Joby S4、Archer、亿航 EH216-S、小鹏汇天等</td><td>不在同一技术路线与认证体系内，不具备可比性</td></tr>
+  </table>
+</section>
+
+<section class="section" id="verdict">
+  <div class="sec-head"><span class="sec-no">07</span><h2>综合结论与「明确未知」</h2></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3 style="margin-top:0">最终判断</h3>
+      <p style="font-size:14px;color:var(--sub)">Flying Roadster 是一次高完成度的<b>工程演示</b>：它把航天器姿控与赛车负压吸附移植到汽车上，证明了「车可以借外力短暂离地并安全落地」。但它不是飞行汽车产业的主流路线——没有持续升力、没有适航取证、没有空域运行方案，也就不构成对城市交通的可行性答案。</p>
+      <p style="font-size:14px;color:var(--sub)">市场层面，它的价值在于品牌与技术牵引，而非销量本身；在低空经济万亿叙事中，它更像一枚技术徽章，而不是一张入场券。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">明确未知（不可由现有公开资料推出）</h3>
+      <ul style="font-size:13.5px;color:var(--sub);padding-left:18px;margin:0">
+        <li>Rocket 版实际可飞行时长、最大高度、补气时间</li>
+        <li>量产车是否保留完整推进套件，或仅保留风扇吸附</li>
+        <li>最终售价、交付顺序与地区开放清单</li>
+        <li>COPV 具体工作压力、循环寿命与失效概率</li>
+        <li>美国 FAA / NHTSA 及各国对其分类的最终认定</li>
+        <li>其 2 G 下压力、80 kN 推力等数据的第三方复测结果</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sources">
+  <div class="sec-head"><span class="sec-no">08</span><h2>参考来源与证据强度</h2></div>
+  <div class="card">
+    <ol class="ref">
+      <li><span class="badge">官方</span><a href="https://www.tesla.com/en_NZ/roadster" target="_blank" rel="noopener">Tesla 官方 Roadster 页面</a>：三档配置、硬件描述、飞行表述与法规免责声明。</li>
+      <li><span class="badge">权威媒体</span><a href="https://www.thepaper.cn/newsdetail_forward_34326145" target="_blank" rel="noopener">澎湃新闻：马斯克的跑车"飞"起来了，但国产飞行汽车是另一回事</a>：A71 系统、600 L/250 kg、80 kN、4,700 kg 下压力、2028 量产。</li>
+      <li><span class="badge">权威媒体</span><a href="https://www.kepuchina.cn/article/articleinfo?ar_id=755501&business_type=100" target="_blank" rel="noopener">科普中国："会飞"的特斯拉跑车，用的是火箭推进技术？</a>：冷气推进原理解释、比冲对比、悬停秒级估算、FAA 表态。</li>
+      <li><span class="badge">权威媒体</span><a href="https://stcn.com/article/detail/4223103.html" target="_blank" rel="noopener">证券时报：会"飞"的汽车来了</a>：三版本参数、定金与国内 33.2 万元意向金。</li>
+      <li><span class="badge">行业媒体</span><a href="https://www.techspot.com/community/goto/post?id=2227072" target="_blank" rel="noopener">TechSpot：Roadster can fly, drive upside down</a>：演示细节、远程操控、2028 生产计划。</li>
+      <li><span class="badge">行业媒体</span><a href="https://electrek.co/2026/08/19/ex-tesla-president-roadster-delay-spacex-thrusters/" target="_blank" rel="noopener">Electrek：Roadster delay 与 SpaceX hovering 技术</a>：延期记录、A71 背景。</li>
+      <li><span class="badge">行业媒体</span><a href="https://financefeeds.com/teslas-roadster-demo-faces-at-least-eight-delays/" target="_blank" rel="noopener">FinanceFeeds：Roadster 演示至少八次延期</a>：2017–2026 时间线与历史规格。</li>
+      <li><span class="badge">机构</span><a href="https://finance.sina.cn/stock/jdts/2025-10-18/detail-infuhrzp0676085.d.html" target="_blank" rel="noopener">新浪财经：摩根士丹利飞行汽车预测</a>：2030 年 3,000 亿美元、2050 年 9 万亿美元。</li>
+      <li><span class="badge">机构</span><a href="https://www.sgpjbg.com/searchtag/27500514.html" target="_blank" rel="noopener">飞行汽车市场分析报告汇编</a>：中国低空经济规模、2025 年国内 eVTOL 交付量。</li>
+      <li><span class="badge">课程资料</span>《第四章 飞行汽车的现状及展望》《第五章 飞行汽车产业分析及支撑技术》，张玉新，吉林大学，2026：应用场景四阶段框架、三支柱模型、技术瓶颈分类。</li>
+    </ol>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:0"><b>证据强度说明：</b>官方 = 特斯拉公开页面；权威媒体 = 主流媒体/科普机构对发布会与官方数据的转述；机构 = 咨询/投行预测，仅供趋势参考；估算 = 基于公开物理参数的量级推算，非实测值；明确未知 = 公开资料不足以支撑结论。所有预测性数字均非承诺。</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">飞行汽车技术基础 · 课程作业 1 ｜ 学号：15231017 ｜ 分析对象：Tesla Flying Roadster ｜ 资料截至 2026-11-21 ｜ <a href="#top">返回顶部 ↑</a></div></footer>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function update(){
+    var y=window.scrollY+120,idx=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i;});
+    links.forEach(function(a,i){a.classList.toggle('active',i===idx);});
+  }
+  window.addEventListener('scroll',update,{passive:true});update();
+})();
+</script>
+</body>
+</html>
